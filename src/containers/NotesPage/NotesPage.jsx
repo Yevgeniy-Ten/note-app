@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "../../assets/instanse";
 import {handlerDataFromDB} from "../../assets/helpers";
 import NotesList from "../../components/NotesList/NotesList";
+import withPreloader from "../../hoc/withPreloader";
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([])
@@ -26,4 +27,4 @@ const NotesPage = () => {
         <NotesList notes={notes} onRemove={removeNote}/>
     )
 }
-export default NotesPage
+export default withPreloader(NotesPage, axios)

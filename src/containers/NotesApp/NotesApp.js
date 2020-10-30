@@ -5,6 +5,7 @@ import AppForm from "../../components/AppForm/AppForm";
 import {useInputValue} from "../../assets/customHooks";
 import axios from "../../assets/instanse"
 import NotesPage from "../NotesPage/NotesPage";
+import withPreloader from "../../hoc/withPreloader";
 
 function NotesApp() {
     const noteInput = useInputValue()
@@ -34,4 +35,4 @@ function NotesApp() {
     );
 }
 
-export default NotesApp;
+export default withPreloader(NotesApp, axios);
