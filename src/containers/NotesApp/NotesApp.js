@@ -6,6 +6,7 @@ import {useInputValue} from "../../assets/customHooks";
 import axios from "../../assets/instanse"
 import NotesPage from "../NotesPage/NotesPage";
 import withPreloader from "../../hoc/withPreloader";
+import {validString} from "../../assets/helpers";
 
 function NotesApp() {
     const noteInput = useInputValue()
@@ -13,11 +14,13 @@ function NotesApp() {
     const addNote = (e) => {
         e.preventDefault()
         const URI = "/notes.json"
-        const note = {
-            date: new Date().toLocaleDateString(),
-            title: noteInput.value
+        if (validString(noteInput.value)) {
+            const note = {
+                date: new Date().toLocaleDateString(),
+                title: noteInput.value
+            }
+            axios.post(URI, note)
         }
-        axios.post(URI, note)
     }
     return (
 
