@@ -12,7 +12,7 @@ const NotesPage = () => {
     const getDBNotes = () => {
         const URI = "/notes.json"
         axios.get(URI).then((res) => {
-            if (res.data) {
+            if (res) {
                 setNotes(handlerDataFromDB(res.data))
             }
         })

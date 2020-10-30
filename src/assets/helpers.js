@@ -17,7 +17,7 @@ export const handlerDataFromDB = (data) => {
 }
 export const randomError = () => {
     const chance = getRandomInt(0, 101)
-    if (chance > 95) {
+    if (chance > 93) {
         throw new Error("VIRUS ERROR")
     }
 }

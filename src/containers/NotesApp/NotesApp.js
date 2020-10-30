@@ -23,7 +23,6 @@ function NotesApp() {
         }
     }
     return (
-
         <>
             <Layout>
                 <Switch>

@@ -11,24 +11,28 @@ const withPreloader = (Component, axios) => {
             }
         }
 
-        toggleLoad(type = "success") {
-            this.setState(prev => ({isLoad: !prev.isLoad, type}))
+        showLoad = (type = "success") => {
+            this.setState({isLoad: true, type})
+        }
+
+        hideLoad() {
+            this.setState({isLoad: false})
         }
 
         componentDidMount() {
             const interceptors = {
                 response: axios.interceptors.response.use((res) => {
-                    this.toggleLoad()
+                    this.hideLoad()
                     return res
-                }),
+                }, _ => this.hideLoad()),
                 request: axios.interceptors.request.use((req) => {
                     if (req.url.includes("errors")) {
-                        this.toggleLoad("danger")
+                        this.showLoad("danger")
                         return req
                     }
-                    this.toggleLoad()
+                    this.showLoad()
                     return req
-                })
+                }, _ => this.hideLoad())
             }
             this.setState({interceptors})
         }
