@@ -7,17 +7,26 @@ const withPreloader = (Component, axios) => {
             super(props);
             this.state = {
                 isLoad: false,
+                type: "success",
             }
+        }
+
+        toggleLoad(type = "success") {
+            this.setState(prev => ({isLoad: !prev.isLoad, type}))
         }
 
         componentDidMount() {
             const interceptors = {
                 response: axios.interceptors.response.use((res) => {
-                    this.setState({isLoad: false})
+                    this.toggleLoad()
                     return res
                 }),
                 request: axios.interceptors.request.use((req) => {
-                    this.setState({isLoad: true})
+                    if (req.url.includes("errors")) {
+                        this.toggleLoad("danger")
+                        return req
+                    }
+                    this.toggleLoad()
                     return req
                 })
             }
@@ -33,7 +42,7 @@ const withPreloader = (Component, axios) => {
 
         render() {
             return <>
-                <Preloader isLoad={this.state.isLoad}/>
+                <Preloader type={this.state.type} isLoad={this.state.isLoad}/>
                 <Component {...this.props}/>
             </>
         }

@@ -1,13 +1,25 @@
 import React from "react";
 import AppAlert from "../AppAlert/AppAlert";
+import axios from "../../assets/instanse"
+import withPreloader from "../../hoc/withPreloader";
 
 class ErrorBoundary extends React.Component {
     state = {
         hasError: false,
     }
 
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch(_, errorInfo) {
+        this.sendError(errorInfo)
         this.setState({hasError: true})
+    }
+
+    sendError(errorInfo) {
+        const URI = "/notes/errors.json"
+        const errorData = {
+            title: "Some error",
+            info: errorInfo,
+        }
+        axios.post(URI, errorData)
     }
 
     render() {
@@ -20,4 +32,4 @@ class ErrorBoundary extends React.Component {
     }
 }
 
-export default ErrorBoundary
+export default withPreloader(ErrorBoundary, axios)

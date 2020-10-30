@@ -16,8 +16,8 @@ export const handlerDataFromDB = (data) => {
     }).reverse()
 }
 export const randomError = () => {
-    const chance = getRandomInt(0, 100)
-    if (chance >= 95) {
-        throw new Error("Hey, Im Virus in Your project")
+    const chance = getRandomInt(0, 101)
+    if (chance > 95) {
+        throw new Error("VIRUS ERROR")
     }
 }
