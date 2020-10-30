@@ -25,8 +25,10 @@ const withPreloader = (Component, axios) => {
         }
 
         componentWillUnmount() {
-            axios.interceptors.request.eject(this.state.interceptors.request)
-            axios.interceptors.response.eject(this.state.interceptors.response)
+            if (this.state.interceptors) {
+                axios.interceptors.request.eject(this.state.interceptors.request)
+                axios.interceptors.response.eject(this.state.interceptors.response)
+            }
         }
 
         render() {
